@@ -1,3 +1,4 @@
+
 package com.jh.testwatchface;
 
 
@@ -38,7 +39,13 @@ package com.jh.testwatchface;
 //tip: Date 객체는 UNIX 타임 스템프 기반으로 1970.1.1 부터 초 단위로 생성 되어,
 //특정 시간을 초 단위로 표현 할 수가 있다.
 
+
+
 //1
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 //2
@@ -55,11 +62,113 @@ import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity
-
-    //View.OnClickListener -->
+    implements View.OnClickListener {
     //app에서 View 클릭 시, 이벤트를 처리함
-implements View.OnClickListener{
-
     //변수 (var) 선언: 디자인
-    
+
+    private TextView timeTextView;
+    private TextView dateTextView;
+    private TextView weatherTextView;
+    private TextView notificationTextView;
+    private TextView heartRateTextView;
+    private TextView stepCountTextView;
+
+
+    private void ininViews() {
+        dateTextView = findViewById(R.id.date_text_view);
+        timeTextView = findViewById(R.id.time_text_view);
+    }
+
+    private void updateClock() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM. d");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+
+        String date = dateFormat.format(new Date());
+        String time = timeFormat.format(new Date());
+
+        dateTextView.setText(date);
+        dateTextView.setText(time);
+    }
+
+    private void initViews() {
+        weatherTextView = findViewById(R.id.weather_text_view);
+        notificationTextView = findViewById(R.id.notification_text_view);
+        heartRateTextView = findViewById(R.id.heart_rate_text_view);
+        stepCountTextView = findViewById(R.id.step_count_text_view);
+    }
+
+    //weather data 수신
+    private void updateWeather() {
+        String weather = getWeather();
+
+        //Te
+        weatherTextView.setText(weather);
+    }
+
+    //notification data 수신
+    private void updateNotification() {
+        String notification = getNotification();
+
+        notificationTextView.setText(notification);
+    }
+
+    //심박수 수신
+    private void updateHeartRate() {
+        String heartRate = getHeartRate();
+
+        heartRateTextView.setText(heartRate);
+    }
+
+    //걸음수 수신
+    private void updateStepCount() {
+        String stepCount = getStepCount();
+
+        stepCountTextView.setText(stepCount);
+    }
+
+    //receive
+    private String getWeather(){
+        return "맑은날";
+    }
+
+    private String getNotification(){
+        return "신규 알림이 있습니다";
+    }
+
+    private String getHeartRate(){
+        return "72 bpm";
+    }
+
+    private String getStepCount(){
+        return "7,234 보";
+    }
+
+    private static final long UPDATE_INTERVAL_MS = 100;
+
+
+    //메소드 제정의
+    @Override
+
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //주기적으로 업데이트 진행
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final Runnable runnable = new Runnable() {
+
+            //메소드 제정의
+            @Override
+
+            public void run() {
+                handler.postDelayed(this, UPDATE_INTERVAL_MS);
+            }
+        };
+        handler.post(runnable);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }

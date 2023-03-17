@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="time_text_view" type="id"/>
+    <item name="weather_layout" type="id"/>
+    <item name="notification_Layout" type="id"/>
+    <item name="date_text_view" type="id"/>
+    <item name="weather_text_view" type="id"/>
+    <item name="notification_text_view" type="id"/>
+    <item name="heart_rate_text_view" type="id"/>
+    <item name="step_count_text_view" type="id"/>
+</resources>
